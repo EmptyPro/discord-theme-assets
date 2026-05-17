@@ -4,8 +4,11 @@
 .visual-refresh .bd-store-card,
 .visual-refresh .bd-addon-store-card,
 .visual-refresh .bd-notification,
-.visual-refresh .bd-modal-root {
-  background: rgba(225, 236, 230, 0.18) !important;
+.visual-refresh .bd-modal-root,
+.bd-addon-card,
+.bd-store-card,
+.bd-modal-root {
+  background: rgba(225, 236, 230, 0.14) !important;
   border: 1px solid rgba(238, 255, 247, 0.20) !important;
   border-radius: 18px !important;
   box-shadow: 0 10px 30px rgba(0,0,0,.18) !important;
@@ -15,27 +18,33 @@
 
 .visual-refresh .bd-addon-card:hover,
 .visual-refresh .bd-store-card:hover,
-.visual-refresh .bd-addon-store-card:hover {
+.visual-refresh .bd-addon-store-card:hover,
+.bd-addon-card:hover {
   border-color: rgba(142, 230, 173, 0.45) !important;
   box-shadow: 0 0 18px rgba(95, 206, 138, 0.20) !important;
 }
 
 .visual-refresh .bd-addon-header,
 .visual-refresh .bd-modal-footer,
-.visual-refresh .bd-notification-footer {
+.visual-refresh .bd-notification-footer,
+.bd-addon-header,
+.bd-modal-footer {
   background: transparent !important;
 }
 
 .visual-refresh .bd-button-filled.bd-button-color-primary,
-.visual-refresh .bd-button {
+.visual-refresh .bd-button,
+.bd-button {
   border-radius: 14px !important;
 }
 
-.visual-refresh .bd-button-filled.bd-button-color-primary {
+.visual-refresh .bd-button-filled.bd-button-color-primary,
+.bd-button-filled.bd-button-color-primary {
   background: rgba(95, 206, 138, 0.65) !important;
 }
 
-.visual-refresh .bd-button-filled.bd-button-color-primary:hover {
+.visual-refresh .bd-button-filled.bd-button-color-primary:hover,
+.bd-button-filled.bd-button-color-primary:hover {
   background: rgba(95, 206, 138, 0.85) !important;
 }
 
