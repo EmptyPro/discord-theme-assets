@@ -1,37 +1,40 @@
 /* Eilo Mountain Glass - main.css */
 
 :root {
-  --eilo-bg-image: url("https://raw.githubusercontent.com/EmptyPro/discord-theme-assets/main/mountain.png");
+  --eilo-bg-image: url("./mountain.png");
 
   --eilo-green: #5fce8a;
   --eilo-green-2: #8ee6ad;
   --eilo-green-soft: rgba(95, 206, 138, 0.22);
 
   --eilo-text: #edf5f1;
+  --eilo-text-dark: #20322b;
   --eilo-muted: #c8d7d0;
 
-  /* Змінні, які очікує головний файл теми */
-  --eilo-panel-dark: rgba(15, 34, 29, 0.52);
-  --eilo-panel-light: rgba(232, 240, 236, 0.13);
-  --eilo-card: rgba(232, 240, 236, 0.10);
-  --eilo-card-hover: rgba(232, 240, 236, 0.20);
-  --eilo-border: rgba(238, 255, 247, 0.16);
+  --eilo-glass: rgba(222, 232, 226, 0.16);
+  --eilo-glass-light: rgba(232, 240, 236, 0.22);
+  --eilo-glass-strong: rgba(225, 236, 230, 0.32);
+  --eilo-glass-dark: rgba(18, 42, 35, 0.44);
+
+  --eilo-border: rgba(238, 255, 247, 0.26);
+  --eilo-border-soft: rgba(238, 255, 247, 0.16);
+
+  --eilo-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  --eilo-glow: 0 0 18px rgba(95, 206, 138, 0.22);
 
   --eilo-radius-sm: 12px;
   --eilo-radius: 18px;
-  --eilo-blur: 20px;
-  --eilo-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
-  --eilo-glow: 0 0 18px rgba(95, 206, 138, 0.22);
+  --eilo-radius-lg: 24px;
+  --eilo-blur: 18px;
 }
 
-/* 1. ПОВНА ПРОЗОРІСТЬ ДЛЯ ВСІХ СІРИХ ШАРІВ DISCORD */
+/* Прибираємо глухий фон з абсолютно усіх нових контейнерів додатку */
 html,
 body,
 #app-mount,
 .appMount__51fd7,
 .app__160d8,
 .app_a3002d,
-.bg__960e4,
 .layers__960e4,
 .layer__960e4,
 .base_c48ade,
@@ -62,7 +65,28 @@ body,
   background: transparent !important;
 }
 
-/* 2. ПРИМУСОВЕ СКИДАННЯ ВНУТРІШНІХ ТЕМНИХ ЗМІННИХ */
+/* Ставимо шпалери у найнижчий шар */
+.bg__960e4 {
+  background:
+    linear-gradient(rgba(210, 225, 218, 0.10), rgba(6, 18, 15, 0.34)),
+    var(--eilo-bg-image) center / cover no-repeat fixed !important;
+  filter: saturate(0.92) brightness(0.92) contrast(1.02) !important;
+  opacity: 1 !important;
+}
+
+#app-mount::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1000;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 55% 10%, rgba(255,255,255,0.22), transparent 38%),
+    linear-gradient(rgba(230, 240, 236, 0.07), rgba(7, 20, 16, 0.34)),
+    var(--eilo-bg-image) center / cover no-repeat fixed;
+}
+
+/* Зачищаємо внутрішні системні кольори Discord */
 .theme-dark,
 .theme-light,
 .visual-refresh,
@@ -74,24 +98,27 @@ body,
   --bg-base-primary: transparent !important;
   --bg-base-secondary: transparent !important;
   --bg-base-tertiary: transparent !important;
-  --bg-surface-overlay: rgba(14, 30, 25, 0.65) !important; /* Вбиває нову сіру підкладку */
+  --bg-surface-overlay: rgba(14, 30, 25, 0.60) !important; /* Вбиває нове сіре покриття */
 
-  --background-mod-normal: rgba(232, 240, 236, 0.08) !important;
-  --background-mod-subtle: rgba(232, 240, 236, 0.10) !important;
-  --background-mod-strong: rgba(232, 240, 236, 0.18) !important;
-  --background-modifier-hover: rgba(232, 240, 236, 0.14) !important;
+  --background-mod-normal: rgba(232, 240, 236, 0.12) !important;
+  --background-mod-subtle: rgba(232, 240, 236, 0.14) !important;
+  --background-mod-strong: rgba(232, 240, 236, 0.22) !important;
+  --background-modifier-hover: rgba(232, 240, 236, 0.18) !important;
   --background-modifier-selected: var(--eilo-green-soft) !important;
+  --background-modifier-active: rgba(95, 206, 138, 0.25) !important;
 
   --text-normal: var(--eilo-text) !important;
   --text-muted: var(--eilo-muted) !important;
   --text-link: var(--eilo-green-2) !important;
+
   --interactive-normal: rgba(237, 245, 241, 0.82) !important;
   --interactive-hover: #ffffff !important;
   --interactive-active: var(--eilo-green-2) !important;
   --brand-500: var(--eilo-green) !important;
+  --brand-560: var(--eilo-green) !important;
 }
 
-/* 3. НАКЛАДАННЯ ЕФЕКТУ СКЛА (GLASSMORPHISM) */
+/* Матове скло на панелях */
 .guilds_c48ade,
 .sidebar_c48ade,
 .privateChannels__35e86,
@@ -100,77 +127,87 @@ body,
 .nowPlayingColumn__133bf,
 .container__7d20c,
 .membersWrap_c8ffbb,
-.members_c8ffbb,
-.directoryModal_f192b9 {
-  background: var(--eilo-panel-dark) !important;
+.members_c8ffbb {
+  background: var(--eilo-glass-dark) !important;
   backdrop-filter: blur(var(--eilo-blur)) saturate(130%) !important;
   -webkit-backdrop-filter: blur(var(--eilo-blur)) saturate(130%) !important;
-  border-color: var(--eilo-border) !important;
+  border-color: var(--eilo-border-soft) !important;
   box-shadow: var(--eilo-shadow) !important;
 }
 
-/* Розділювальні лінії */
-.guilds_c48ade,
+.guilds_c48ade {
+  border-right: 1px solid var(--eilo-border-soft) !important;
+}
+
 .sidebar_c48ade,
 .privateChannels__35e86,
 .container__2637a {
-  border-right: 1px solid var(--eilo-border) !important;
+  border-right: 1px solid var(--eilo-border-soft) !important;
 }
 
-/* Нижня панель (мікрофон, навушники, профіль) */
 .panels_c48ade {
   margin: 8px !important;
-  border: 1px solid var(--eilo-border) !important;
+  border: 1px solid var(--eilo-border-soft) !important;
   border-radius: var(--eilo-radius) !important;
-  background: rgba(10, 24, 20, 0.35) !important;
 }
 
-/* Шапка Discord (верхня панель навігації) */
 .themed__9293f,
 .bar_c38106,
 .title_f75fb0,
 .container__9293f,
-.headerBar__8a7fc,
-.header__9293f {
-  background: rgba(14, 30, 26, 0.50) !important;
+.headerBar__8a7fc {
+  background: rgba(20, 42, 36, 0.30) !important;
   backdrop-filter: blur(var(--eilo-blur)) !important;
   -webkit-backdrop-filter: blur(var(--eilo-blur)) !important;
-  border-bottom: 1px solid var(--eilo-border) !important;
+  border-bottom: 1px solid var(--eilo-border-soft) !important;
 }
 
-/* Елементи списку друзів */
+.peopleColumn__133bf {
+  background: rgba(225, 236, 230, 0.10) !important;
+  backdrop-filter: blur(12px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(120%) !important;
+}
+
+.peopleListItem_cc6179,
+.peopleListItem__344e6,
+.peopleListItem__5ec2f,
 [class*="peopleListItem"] {
-  background: var(--eilo-card) !important;
-  border: 1px solid rgba(238, 255, 247, 0.12) !important;
+  background: rgba(225, 236, 230, 0.15) !important;
+  border: 1px solid var(--eilo-border-soft) !important;
   border-radius: var(--eilo-radius) !important;
   margin: 7px 10px !important;
   transition: 0.18s ease !important;
 }
 
+.peopleListItem_cc6179:hover,
+.peopleListItem__344e6:hover,
+.peopleListItem__5ec2f:hover,
 [class*="peopleListItem"]:hover {
-  background: var(--eilo-card-hover) !important;
+  background: rgba(225, 236, 230, 0.26) !important;
   border-color: rgba(142, 230, 173, 0.36) !important;
   box-shadow: var(--eilo-glow) !important;
 }
 
-/* Картки "Активний зараз" (Права панель) */
 .outer_bf1984,
-[class*="itemCard"],
+.itemCard__7e549,
+.itemCard__7d20c,
 .section__00943,
-.emptyCard__7e549 {
-  background: var(--eilo-card) !important;
-  border: 1px solid rgba(238, 255, 247, 0.12) !important;
+.emptyCard__7e549,
+[class*="itemCard"] {
+  background: rgba(225, 236, 230, 0.18) !important;
+  border: 1px solid var(--eilo-border-soft) !important;
   border-radius: var(--eilo-radius) !important;
   box-shadow: var(--eilo-shadow) !important;
 }
 
 .outer_bf1984:hover,
+.itemCard__7e549:hover,
+.itemCard__7d20c:hover,
 [class*="itemCard"]:hover {
-  background: var(--eilo-card-hover) !important;
+  background: rgba(225, 236, 230, 0.28) !important;
   border-color: rgba(142, 230, 173, 0.34) !important;
 }
 
-/* Поля пошуку та текстові зони введення повідомлень */
 .searchBar__97492,
 .searchBar__5ec2f,
 .searchBarComponent__35e86,
@@ -182,12 +219,21 @@ body,
 .addFriendInputWrapper__72ba7,
 [class*="searchBar"],
 [class*="search"] {
-  background: rgba(236, 244, 240, 0.12) !important;
-  border: 1px solid rgba(238, 255, 247, 0.20) !important;
+  background: rgba(236, 244, 240, 0.17) !important;
+  border: 1px solid rgba(238, 255, 247, 0.26) !important;
   border-radius: var(--eilo-radius) !important;
   box-shadow: none !important;
   backdrop-filter: blur(var(--eilo-blur)) !important;
   -webkit-backdrop-filter: blur(var(--eilo-blur)) !important;
+}
+
+.searchBar__97492:focus-within,
+.searchBar__5ec2f:focus-within,
+.wrapper__72c38:focus-within,
+.channelTextArea__74017:focus-within,
+.addFriendInputWrapper__72ba7:focus-within {
+  border-color: rgba(142, 230, 173, 0.55) !important;
+  box-shadow: var(--eilo-glow) !important;
 }
 
 input,
@@ -198,7 +244,6 @@ textarea,
   background: transparent !important;
 }
 
-/* Канали / Просторі діалоги зліва */
 .interactive_bf202d,
 .channel__972a0,
 .container__0f2e8,
@@ -210,7 +255,7 @@ textarea,
 .interactive_bf202d:hover,
 .channel__972a0:hover,
 .wrapper__2ea32:hover .link__2ea32 {
-  background: rgba(232, 240, 236, 0.12) !important;
+  background: rgba(232, 240, 236, 0.14) !important;
 }
 
 .selected_bf202d,
@@ -223,7 +268,6 @@ textarea,
   box-shadow: inset 0 0 0 1px rgba(142, 230, 173, 0.32) !important;
 }
 
-/* Повідомлення */
 .messageListItem__5126c,
 .message__5126c,
 .cozyMessage__5126c {
@@ -233,7 +277,7 @@ textarea,
 .messageListItem__5126c:hover .message__5126c,
 .message__5126c:hover,
 .message__5126c.selected__5126c {
-  background: rgba(232, 240, 236, 0.12) !important;
+  background: rgba(232, 240, 236, 0.13) !important;
 }
 
 .mentioned__5126c {
@@ -244,7 +288,6 @@ textarea,
   background: var(--eilo-green) !important;
 }
 
-/* Спливаючі списки, контекстні меню */
 .root__49fc1,
 .container__8a031,
 .popout__76f04,
@@ -254,20 +297,19 @@ textarea,
 .tooltip__382e7,
 .modal__56d1c,
 .authBox__921c5 {
-  background: rgba(20, 42, 36, 0.80) !important;
+  background: rgba(20, 42, 36, 0.72) !important;
   backdrop-filter: blur(var(--eilo-blur)) saturate(130%) !important;
   -webkit-backdrop-filter: blur(var(--eilo-blur)) saturate(130%) !important;
-  border: 1px solid var(--eilo-border) !important;
+  border: 1px solid var(--eilo-border-soft) !important;
   border-radius: var(--eilo-radius) !important;
   box-shadow: var(--eilo-shadow) !important;
 }
 
-/* Кнопки */
 button,
 .button__201d5,
 .button_a22cb0,
 .actionButton_f8fa06 {
-  border-radius: 12px !important;
+  border-radius: 14px !important;
   transition: 0.16s ease !important;
 }
 
@@ -281,6 +323,14 @@ button,
   color: #ffffff !important;
 }
 
+.lookFilled__201d5.colorBrand__201d5:hover,
+.lookFilled__201d5.colorPrimary__201d5:hover,
+.lookFilled__201d5.colorGreen__201d5:hover,
+.primary_a22cb0:hover {
+  background: rgba(95, 206, 138, 0.82) !important;
+  box-shadow: var(--eilo-glow) !important;
+}
+
 .numberBadge__2b1f5,
 .textBadge__2b1f5 {
   background: var(--eilo-green) !important;
@@ -292,28 +342,32 @@ a,
   color: var(--eilo-green-2) !important;
 }
 
+rect[fill="#43a25a"],
+.status_b9fccc[style*="background-color"] {
+  filter: saturate(120%) !important;
+}
+
 .wrapper__6e9f8,
 .svg__6e9f8,
 .childWrapper__6e9f8 {
-  border-radius: 16px !important;
+  border-radius: 18px !important;
 }
 
-/* Скроллбар */
 ::-webkit-scrollbar {
-  width: 10px !important;
+  width: 12px !important;
 }
 ::-webkit-scrollbar-track {
   background: transparent !important;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(238, 255, 247, 0.24) !important;
-  border: 2px solid transparent !important;
+  background: rgba(238, 255, 247, 0.34) !important;
+  border: 3px solid transparent !important;
   border-radius: 999px !important;
   background-clip: padding-box !important;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(142, 230, 173, 0.56) !important;
-  border: 2px solid transparent !important;
+  border: 3px solid transparent !important;
   background-clip: padding-box !important;
 }
 
