@@ -1,22 +1,17 @@
-/* Eilo Mountain Glass - main.css (Точна копія оригінального дизайну) */
+/* Eilo Mountain Glass - main.css (Повна адаптація під Visual Refresh) */
 
 :root {
   --eilo-bg-image: url("./mountain.png");
 
   --eilo-green: #5fce8a;
   --eilo-green-2: #8ee6ad;
-  --eilo-green-soft: rgba(95, 206, 138, 0.22);
+  --eilo-green-soft: rgba(95, 206, 138, 0.16);
 
   --eilo-text: #edf5f1;
   --eilo-text-dark: #20322b;
   --eilo-muted: #c8d7d0;
 
-  --eilo-glass: rgba(222, 232, 226, 0.05);
-  --eilo-glass-light: rgba(232, 240, 236, 0.12);
-  --eilo-glass-strong: rgba(225, 236, 230, 0.22);
-  --eilo-glass-dark: rgba(14, 30, 25, 0.44);
-
-  --eilo-border: rgba(238, 255, 247, 0.18);
+  --eilo-glass-dark: rgba(12, 28, 22, 0.46);
   --eilo-border-soft: rgba(238, 255, 247, 0.10);
 
   --eilo-shadow: 0 10px 30px rgba(0, 0, 0, 0.20);
@@ -24,57 +19,55 @@
 
   --eilo-radius-sm: 12px;
   --eilo-radius: 18px;
-  --eilo-radius-lg: 24px;
-  --eilo-blur: 20px;
+  --eilo-blur: 24px;
 }
 
-/* 1. БАЗОВА ПРОЗОРІСТЬ СИСТЕМНИХ КОНТЕЙНЕРІВ */
+/* 1. ПОВНЕ ОБНУЛЕННЯ ТЛОМ НА ВСІХ РІВНЯХ (ГЕНЕРАЛЬНЕ ПРИБИРАННЯ) */
 html,
 body,
 #app-mount,
-.appMount__51fd7,
-.app__160d8,
-.app_a3002d,
-.layers__960e4,
-.layer__960e4,
-.base_c48ade,
-.container_c48ade,
-.content_c48ade,
-.page_c48ade,
-.chat_f75fb0,
-.chatContent_f75fb0,
-.content_f75fb0,
-.tabBody__133bf,
-.applicationStore_f07d62,
-.shop__08415,
-.shop__6db1d,
-.scroller__99e7c,
-.scroller__36d07,
-.scroller__7d20c,
-.scroller_c43953,
-.scroller__244e5,
-.scroller__4a84a,
-.scrollerBase__99f8c,
-.scrollerBase_d125d2 {
+[class*="appMount"],
+[class*="app_"],
+[class*="layers_"],
+[class*="layer_"],
+[class*="base_"],
+[class*="container_"],
+[class*="content_"],
+[class*="page_"],
+[class*="chat_"],
+[class*="chatContent_"],
+[class*="tabBody"],
+[class*="standardSidebarView"],
+[class*="contentRegion"],
+[class*="scroller__"],
+[class*="scrollerBase"],
+[class*="peopleColumn"] {
   background: transparent !important;
   background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
-/* 2. НАЛАШТУВАННЯ ЗАДНЬОГО ФОНУ ЯК НА СКРІНШОТІ */
-#app-mount::before,
+/* Прибираємо новий монолітний задній фон Visual Refresh, який все сірив */
+[class*="bg_"] {
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
+/* 2. НАКЛАДАННЯ ШПАЛЕР ЯК НА ЕТАЛОНІ */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1000;
+  z-index: -9999;
   pointer-events: none;
   background:
-    radial-gradient(circle at 55% 10%, rgba(255, 255, 255, 0.22), transparent 38%),
-    linear-gradient(rgba(230, 240, 236, 0.07), rgba(7, 20, 16, 0.34)),
+    radial-gradient(circle at 55% 10%, rgba(255, 255, 255, 0.20), transparent 38%),
+    linear-gradient(rgba(230, 240, 236, 0.05), rgba(7, 20, 16, 0.30)),
     var(--eilo-bg-image) center / cover no-repeat fixed !important;
 }
 
-/* 3. ОБНУЛЕННЯ СИСТЕМНИХ СТАНДАРТНИХ КОЛЬОРІВ DISCORD */
+/* 3. ДЕАКТИВАЦІЯ СИСТЕМНИХ ПАЛІТР DISCORD */
 .theme-dark,
 .theme-light,
 .visual-refresh,
@@ -86,187 +79,117 @@ body::before {
   --bg-base-primary: transparent !important;
   --bg-base-secondary: transparent !important;
   --bg-base-tertiary: transparent !important;
+  --bg-surface-overlay: transparent !important;
+  --bg-mod-strong: transparent !important;
 
-  --background-mod-normal: rgba(232, 240, 236, 0.10) !important;
-  --background-mod-subtle: rgba(232, 240, 236, 0.12) !important;
-  --background-mod-strong: rgba(232, 240, 236, 0.18) !important;
-  --background-modifier-hover: rgba(232, 240, 236, 0.14) !important;
+  --background-mod-normal: rgba(232, 240, 236, 0.08) !important;
+  --background-modifier-hover: rgba(232, 240, 236, 0.12) !important;
   --background-modifier-selected: var(--eilo-green-soft) !important;
 
   --text-normal: var(--eilo-text) !important;
   --text-muted: var(--eilo-muted) !important;
-  --text-link: var(--eilo-green-2) !important;
-
   --interactive-normal: rgba(237, 245, 241, 0.82) !important;
   --interactive-hover: #ffffff !important;
   --interactive-active: var(--eilo-green-2) !important;
-  --brand-500: var(--eilo-green) !important;
 }
 
-/* 4. БІЧНІ СКЛЯНІ ПАНЕЛІ (МАТОВИЙ ЕФЕКТ) */
-.guilds_c48ade,
-.sidebar_c48ade,
-.privateChannels__35e86,
-.container__2637a,
-.container__7d20c,
-.membersWrap_c8ffbb,
-.members_c8ffbb {
+/* 4. ЛІВА ПАНЕЛЬ ТА СПИСОК КАНАЛІВ (СКЛО) */
+[class*="guilds_"],
+[class*="sidebar_"],
+[class*="privateChannels_"] {
   background: var(--eilo-glass-dark) !important;
-  backdrop-filter: blur(var(--eilo-blur)) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(var(--eilo-blur)) saturate(130%) !important;
-  border-color: var(--eilo-border-soft) !important;
+  backdrop-filter: blur(var(--eilo-blur)) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(var(--eilo-blur)) saturate(140%) !important;
+  border-right: 1px solid var(--eilo-border-soft) !important;
   box-shadow: var(--eilo-shadow) !important;
 }
 
-.guilds_c48ade,
-.sidebar_c48ade,
-.privateChannels__35e86,
-.container__2637a {
-  border-right: 1px solid var(--eilo-border-soft) !important;
-}
-
-/* Нижня панелька користувача */
-.panels_c48ade {
-  background: rgba(14, 30, 25, 0.25) !important;
-  margin: 8px !important;
+/* Нижня плашка профілю */
+[class*="panels_"] {
+  background: rgba(12, 28, 22, 0.25) !important;
+  margin: 10px !important;
   border: 1px solid var(--eilo-border-soft) !important;
   border-radius: var(--eilo-radius) !important;
+  backdrop-filter: blur(10px) !important;
 }
 
-/* Шапка та навігаційні бари */
-.themed__9293f,
-.bar_c38106,
-.title_f75fb0,
-.container__9293f,
-.headerBar__8a7fc {
-  background: rgba(15, 33, 27, 0.25) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+/* Внутрішній скроллер списку друзів (примусово очищаємо) */
+[class*="list_"] {
+  background: transparent !important;
+}
+
+/* 5. ФІЛІГРАННЕ НАЛАШТУВАННЯ КАРТОК ДРУЗІВ (ЦЕНТР) */
+[class*="peopleListItem"] {
+  background: rgba(225, 236, 230, 0.04) !important;
+  border: 1px solid rgba(238, 255, 247, 0.06) !important;
+  border-radius: var(--eilo-radius) !important;
+  margin: 8px 16px !important;
+  padding: 10px 14px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+[class*="peopleListItem"]:hover {
+  background: rgba(225, 236, 230, 0.12) !important;
+  border-color: rgba(142, 230, 173, 0.25) !important;
+  box-shadow: var(--eilo-shadow), var(--eilo-glow) !important;
+}
+
+/* Верхня панель навігації (Друзі, В мережі, Усі тощо) */
+[class*="themed_"],
+[class*="headerBar_"] {
+  background: rgba(12, 28, 22, 0.20) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border-bottom: 1px solid var(--eilo-border-soft) !important;
 }
 
-/* 5. ЦЕНТРАЛЬНА ЧАСТИНА (ЧИСТА ПРОЗОРІСТЬ) */
-.peopleColumn__133bf {
-  background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-
-/* Рядки друзів у списку (як на оригіналі) */
-.peopleListItem_cc6179,
-.peopleListItem__344e6,
-.peopleListItem__5ec2f,
-[class*="peopleListItem"] {
-  background: rgba(225, 236, 230, 0.05) !important;
-  border: 1px solid rgba(238, 255, 247, 0.08) !important;
-  border-radius: var(--eilo-radius) !important;
-  margin: 8px 16px !important;
-  padding: 8px 12px !important;
-  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
-}
-
-.peopleListItem_cc6179:hover,
-.peopleListItem__344e6:hover,
-.peopleListItem__5ec2f:hover,
-[class*="peopleListItem"]:hover {
-  background: rgba(225, 236, 230, 0.14) !important;
-  border-color: rgba(142, 230, 173, 0.25) !important;
-  box-shadow: var(--eilo-shadow) !important;
-}
-
-/* Панель «Активний зараз» (Права колонка) */
-.nowPlayingColumn__133bf {
-  background: rgba(14, 30, 25, 0.35) !important;
-  backdrop-filter: blur(var(--eilo-blur)) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(var(--eilo-blur)) saturate(130%) !important;
+/* 6. ПРАВА ПАНЕЛЬ "АКТИВНИЙ ЗАРАЗ" (ПОВЕРТАЄМО МАТОВІСТЬ) */
+[class*="nowPlayingColumn"] {
+  background: var(--eilo-glass-dark) !important;
+  backdrop-filter: blur(var(--eilo-blur)) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(var(--eilo-blur)) saturate(140%) !important;
   border-left: 1px solid var(--eilo-border-soft) !important;
 }
 
-.outer_bf1984,
-.itemCard__7e549,
-.itemCard__7d20c,
-.section__00943,
-.emptyCard__7e549 {
-  background: rgba(225, 236, 230, 0.08) !important;
+/* Картки активностей у правій колонці */
+[class*="itemCard"] {
+  background: rgba(225, 236, 230, 0.06) !important;
   border: 1px solid var(--eilo-border-soft) !important;
   border-radius: var(--eilo-radius) !important;
-  box-shadow: var(--eilo-shadow) !important;
 }
-
-.outer_bf1984:hover,
-.itemCard__7e549:hover,
-.itemCard__7d20c:hover {
-  background: rgba(225, 236, 230, 0.16) !important;
+[class*="itemCard"]:hover {
+  background: rgba(225, 236, 230, 0.14) !important;
   border-color: rgba(142, 230, 173, 0.25) !important;
 }
 
-/* 6. ПОШУК ТА ПОЛЯ ВВОДУ */
-.searchBar__97492,
-.searchBar__5ec2f,
-.searchBarComponent__35e86,
-.container_a45028,
-.container_fea832,
-.wrapper__72c38,
-.channelTextArea__74017,
-.scrollableContainer__74017,
-.addFriendInputWrapper__72ba7 {
-  background: rgba(236, 244, 240, 0.08) !important;
-  border: 1px solid rgba(238, 255, 247, 0.14) !important;
+/* 7. КНОПКИ ТА ПОЛЯ ПОШУКУ */
+[class*="searchBar"],
+[class*="searchBarComponent"],
+[class*="addFriendInputWrapper"] {
+  background: rgba(236, 244, 240, 0.07) !important;
+  border: 1px solid rgba(238, 255, 247, 0.12) !important;
   border-radius: var(--eilo-radius) !important;
-  box-shadow: none !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  backdrop-filter: blur(8px) !important;
 }
 
-/* 7. АКТИВНІ ЕЛЕМЕНТИ НАВІГАЦІЇ */
-.interactive_bf202d,
-.channel__972a0,
-.container__0f2e8,
-.wrapper__2ea32 .link__2ea32 {
+/* Активні та вибрані вкладки ліворуч */
+[class*="interactive_"] {
   border-radius: var(--eilo-radius-sm) !important;
-  transition: 0.16s ease !important;
 }
-
-.selected_bf202d,
-.selected__91a9d,
-.selected__0f2e8,
-.modeSelected__2ea32 .link__2ea32 {
+[class*="selected_"] {
   background: var(--eilo-green-soft) !important;
   color: var(--eilo-green-2) !important;
-  border-radius: var(--eilo-radius-sm) !important;
-  box-shadow: inset 0 0 0 1px rgba(142, 230, 173, 0.25) !important;
-}
-
-/* 8. СКЛЯНІ ПІДКАЗКИ / МОДАЛКИ */
-.root__49fc1,
-.container__8a031,
-.popout__76f04,
-.menu_c1e9c4,
-.userPopoutOuter_c69a7b,
-.userProfileModalOuter_c69a7b,
-.tooltip__382e7,
-.modal__56d1c {
-  background: rgba(16, 34, 28, 0.80) !important;
-  backdrop-filter: blur(var(--eilo-blur)) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(var(--eilo-blur)) saturate(130%) !important;
-  border: 1px solid var(--eilo-border-soft) !important;
-  border-radius: var(--eilo-radius) !important;
-  box-shadow: var(--eilo-shadow) !important;
+  box-shadow: inset 0 0 0 1px rgba(142, 230, 173, 0.20) !important;
 }
 
 /* Скроллбари */
-::-webkit-scrollbar { width: 10px !important; }
+::-webkit-scrollbar { width: 8px !important; }
 ::-webkit-scrollbar-track { background: transparent !important; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(238, 255, 247, 0.18) !important;
-  border: 2px solid transparent !important;
+  background: rgba(238, 255, 247, 0.15) !important;
   border-radius: 999px !important;
-  background-clip: padding-box !important;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(142, 230, 173, 0.40) !important;
-  border: 2px solid transparent !important;
-  background-clip: padding-box !important;
+  background: rgba(142, 230, 173, 0.35) !important;
 }
-
-* { outline-color: transparent !important; }
